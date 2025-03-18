@@ -1,0 +1,105 @@
+{% extends 'admin/layouts/app.html' %}
+
+{% block title %}FRAS | Dashbaord{% endblock %}
+
+{% load static %}
+
+{% block css %}
+<style>
+    .toast {
+        color: #000; /* Set text color to black */
+        background-color: #fff; /* Set background color to white */
+    }
+    .toast-title {
+        color: #000; /* Title text color */
+    }
+    .toast-message {
+        color: #000; /* Message text color */
+    }
+    .toast-close-button {
+        color: #000; /* Close button color */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    {% endblock %}
+
+    {% block js %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@apexcharts/apexcharts@3.35.0"></script>
+    
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Data for the charts
+            var options = {
+                chart: {
+                    type: 'line',
+                    height: 150,
+                    zoom: {
+                        enabled: false
+                    },
+                    toolbar: {
+                        show: false
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2
+                },
+                series: [{
+                    name: 'Data',
+                    data: [10, 20, 15, 30, 25, 35,39]
+                }],
+                xaxis: {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun','jul'],
+                    labels: {
+                        style: {
+                            colors: '#9aa0ac'
+                        }
+                    }
+                },
+                yaxis: {
+                    labels: {
+                        style: {
+                            colors: '#9aa0ac'
+                        }
+                    }
+                },
+                colors: ['#00cfe8']
+            };
+    
+            // Initialize Chart 1
+            new ApexCharts(document.querySelector("#chart1"), options).render();
+    
+            // Initialize Chart 2
+            new ApexCharts(document.querySelector("#chart2"), options).render();
+    
+            // Initialize Chart 3
+            new ApexCharts(document.querySelector("#chart3"), options).render();
+    
+            // Initialize Chart 4
+            new ApexCharts(document.querySelector("#chart4"), options).render();
+        });
+        $(document).ready(function() {
+            $('#searchInput').on('input', function() {
+                var query = $(this).val().toLowerCase();
+                
+                $('#userTable tbody tr').each(function() {
+                    var rowText = $(this).text().toLowerCase();
+                    if (rowText.includes(query)) {
+                        $(this).show(); // Show row if it matches the query
+                    } else {
+                        $(this).hide(); // Hide row if it doesn't match the query
+                    }
+                });
+            });
+        });
+    </script>
+    
+    {% endblock %}

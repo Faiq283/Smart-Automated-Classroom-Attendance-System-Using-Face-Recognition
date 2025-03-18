@@ -1,0 +1,87 @@
+{% extends 'admin/layouts/app.html' %}
+
+{% block title %}Semester | Add{% endblock %}
+
+{% block css %}
+<style>
+    .toast {
+        color: #000; /* Set text color to black */
+        background-color: #fff; /* Set background color to white */
+    }
+    .toast-title {
+        color: #000; /* Title text color */
+    }
+    .toast-message {
+        color: #000; /* Message text color */
+    }
+    .toast-close-button {
+        color: #000; /* Close button color */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section id="number-tabs">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Semester Add <i class="feather icon-calendar"></i></h4>
+                </div>
+                <div class="card-content">
+                    <div class="card-body">
+                        <form method="POST" action="{% url 'semester_create' %}" enctype="multipart/form-data" class="number-tab-steps wizard-circle">
+                            {% csrf_token %}
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="semester_name">Semester Name *</label>
+                                            <input type="text" name="semester_name" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="is_current">Status *</label>
+                                            <select name="is_current" class="form-control" id="is_current">                                            
+                                                <option value="True" {% if form.is_current.value == 'True' %}selected{% endif %}>Active</option>
+                                                <option value="False" {% if form.is_current.value == 'False' %}selected{% endif %}>Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>                                                                       
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="start_date">Start Date *</label>
+                                            <input type="date" name="start_date" value="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="end_date">End Date *</label>
+                                            <input type="date" name="end_date" value="" class="form-control">
+                                        </div>
+                                    </div>                                                                   
+                            </div>                                
+                            </fieldset>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">Add</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block js %}
+$(document).ready(function () {
+    {% if messages %}
+        {% for message in messages %}
+            toastr.{{ message.tags }}("{{ message|escapejs }}");
+        {% endfor %}
+    {% endif %}
+
+});
+{% endblock %}
